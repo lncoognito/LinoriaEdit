@@ -824,8 +824,8 @@ do
             end;
         end);
 
-        InputService.InputBegan:Connect(function(Input)
-            if (not Picking) then
+        InputService.InputBegan:Connect(function(Input, GameProccessed)
+            if (not Picking) and (not GameProccessed) then
                 if KeyPicker.Mode == 'Toggle' then
                     local Key = KeyPicker.Value;
 
