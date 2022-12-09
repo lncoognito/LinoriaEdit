@@ -4,7 +4,7 @@ local ThemeManager = {}
 ThemeManager.Folder = "LinoriaThemeFolder"
 ThemeManager.Library = nil
 ThemeManager.BuiltInThemes = {
-    ["Default"] 		= { 1, HttpService:JSONDecode('{"FontColor":"ffffff","MainColor":"141414","AccentColor":"ffffff","BackgroundColor":"1c1c1c","OutlineColor":"3c3c3c"}') },
+    ["Default"] 		= { 1, HttpService:JSONDecode('{"FontColor":"ffffff","MainColor":"191919","AccentColor":"ffffff","BackgroundColor":"1c1c1c","OutlineColor":"3c3c3c"}') },
     ["Dracula"] 		= { 2, HttpService:JSONDecode('{"FontColor":"ffffff","MainColor":"232533","AccentColor":"6271a5","BackgroundColor":"1b1c27","OutlineColor":"7c82a7"}') },
     ["Bitch Bot"] 		= { 3, HttpService:JSONDecode('{"FontColor":"ffffff","MainColor":"1e1e1e","AccentColor":"7e48a3","BackgroundColor":"232323","OutlineColor":"141414"}') },
     ["Kiriot Hub"] 		= { 4, HttpService:JSONDecode('{"FontColor":"ffffff","MainColor":"30333b","AccentColor":"ffaa00","BackgroundColor":"1a1c20","OutlineColor":"141414"}') },
@@ -102,6 +102,7 @@ function ThemeManager:CreateThemeManager(GroupBox)
     end)
 
     GroupBox:AddDivider()
+
     GroupBox:AddDropdown("ThemeManager_CustomThemeList", { Text = "Custom themes", Values = self:ReloadCustomThemes(), AllowNull = true, Default = 1 })
     GroupBox:AddInput("ThemeManager_CustomThemeName", { Text = "Custom theme name" })
 
@@ -129,6 +130,8 @@ function ThemeManager:CreateThemeManager(GroupBox)
             self.Library:Notify(string.format("Set default theme to %q", Options.ThemeManager_CustomThemeList.Value))
         end
     end)
+
+    GroupBox:AddDivider()
 
     GroupBox:AddToggle("ToggleWatermark", {
         Text = "Toggle Watermark",
