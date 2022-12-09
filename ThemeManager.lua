@@ -130,6 +130,16 @@ function ThemeManager:CreateThemeManager(GroupBox)
         end
     end)
 
+    GroupBox:AddToggle("ToggleWatermark", {
+        Text = "Toggle Watermark",
+        Tooltip = "Name is self explanitory.",
+        Default = true
+    })
+
+    Options.ToggleWatermark:OnChanged(function()
+        self.Library:SetWatermarkVisibility(Options.ToggleWatermark.Value)
+    end)
+
     ThemeManager:LoadDefault()
 
     local function UpdateTheme()
