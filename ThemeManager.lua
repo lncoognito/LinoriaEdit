@@ -210,8 +210,8 @@ function ThemeManager:ReloadCustomThemes()
     return Out
 end
 
-function ThemeManager:SetLibrary(Library)
-    self.Library = Library
+function ThemeManager:SetLibrary(Lib)
+    self.Library = Lib
 end
 
 function ThemeManager:BuildFolderTree()
