@@ -181,37 +181,37 @@ function SaveManager:LoadAutoloadConfig()
         local Success, Error = self:Load(Name)
 
         if not Success then
-            return self.Library:Notify(string.format("Failed to load autoload config. [%s]", Error))
+            return self.Library:Notify(string.format("[Fondra]: Failed to load autoload config. [%s]", Error))
         end
 
-        self.Library:Notify(string.format("Auto loaded config %q", Name))
+        self.Library:Notify(string.format("[Fondra]: Auto loaded config %q", Name))
     end
 end
 
 function SaveManager:BuildConfigSection(Tab)
     assert(self.Library, "Must set SaveManager.Library")
 
-    local Section = Tab:AddRightGroupbox("Configuration")
+    local GroupBox = Tab:AddRightGroupbox("Configuration")
 
-    Section:AddDropdown("SaveManager_ConfigList", { Text = "Config list", Values = self:RefreshConfigList(), AllowNull = true })
-    Section:AddInput("SaveManager_ConfigName", { Text = "Config name" })
+    GroupBox:AddDropdown("SaveManager_ConfigList", { Text = "Config list", Values = self:RefreshConfigList(), AllowNull = true })
+    GroupBox:AddInput("SaveManager_ConfigName", { Text = "Config name" })
 
-    Section:AddDivider()
+    GroupBox:AddDivider()
 
-    Section:AddButton("Create config", function()
+    GroupBox:AddButton("Create config", function()
         local Name = Options.SaveManager_ConfigName.Value
 
         if Name:gsub(" ", "") == "" then 
-            return self.Library:Notify("Invalid config name. [Empty]", 2)
+            return self.Library:Notify("[Fondra]: Invalid config name. [Empty]", 2)
         end
 
         local Success, Error = self:Save(Name)
 
         if not Success then
-            return self.Library:Notify("Failed to save config: " .. Error)
+            return self.Library:Notify("[Fondra]: Failed to save config: " .. Error)
         end
 
-        self.Library:Notify(string.format("Created config %q", Name))
+        self.Library:Notify(string.format("[Fondra]: Created config %q", Name))
 
         Options.SaveManager_ConfigList.Values = self:RefreshConfigList()
         Options.SaveManager_ConfigList:SetValues()
@@ -221,37 +221,37 @@ function SaveManager:BuildConfigSection(Tab)
         local Success, Error = self:Load(Name)
 
         if not Success then
-            return self.Library:Notify("Failed to load config: " .. Error)
+            return self.Library:Notify("[Fondra]: Failed to load config: " .. Error)
         end
 
-        self.Library:Notify(string.format("Loaded config %q", Name))
+        self.Library:Notify(string.format("[Fondra]: Loaded config %q", Name))
     end)
 
-    Section:AddButton("Overwrite config", function()
+    GroupBox:AddButton("Overwrite config", function()
         local Name = Options.SaveManager_ConfigList.Value
         local Success, Error = self:Save(Name)
 
         if not Success then
-            return self.Library:Notify("Failed to overwrite config: " .. Error)
+            return self.Library:Notify("[Fondra]: Failed to overwrite config: " .. Error)
         end
 
-        self.Library:Notify(string.format("Overwrote config %q", Name))
+        self.Library:Notify(string.format("[Fondra]: Overwrote config %q", Name))
     end)
     
-    Section:AddButton("Autoload config", function()
+    GroupBox:AddButton("Autoload config", function()
         local Name = Options.SaveManager_ConfigList.Value
         writefile(self.Folder .. "/Settings/AutoLoad.txt", Name)
         SaveManager.AutoloadLabel:SetText("Current autoload config: " .. Name)
-        self.Library:Notify(string.format("Set %q to auto load", Name))
+        self.Library:Notify(string.format("[Fondra]: Set %q to auto load", Name))
     end)
 
-    Section:AddButton("Refresh config list", function()
+    GroupBox:AddButton("Refresh config list", function()
         Options.SaveManager_ConfigList.Values = self:RefreshConfigList()
         Options.SaveManager_ConfigList:SetValues()
         Options.SaveManager_ConfigList:SetValue(nil)
     end)
 
-    SaveManager.AutoloadLabel = Section:AddLabel("Current autoload config: None", true)
+    SaveManager.AutoloadLabel = GroupBox:AddLabel("Current autoload config: None", true)
 
     if isfile(self.Folder .. "/Settings/AutoLoad.txt") then
         local Name = readfile(self.Folder .. "/Settings/AutoLoad.txt")
