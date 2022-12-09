@@ -182,7 +182,7 @@ function ThemeManager:SaveCustomTheme(File)
         Theme[Field] = Options[Field].Value:ToHex()
     end
 
-    writefile(self.Folder .. "/Themes/" .. File .. ".json", httpService:JSONEncode(Theme))
+    writefile(self.Folder .. "/Themes/" .. File .. ".json", HttpService:JSONEncode(Theme))
 end
 
 function ThemeManager:ReloadCustomThemes()
