@@ -196,7 +196,7 @@ function SaveManager:BuildConfigSection(Tab)
     Section:AddDropdown("SaveManager_ConfigList", { Text = "Config list", Values = self:RefreshConfigList(), AllowNull = true })
     Section:AddInput("SaveManager_ConfigName", { Text = "Config name" })
 
-    section:AddDivider()
+    Section:AddDivider()
 
     Section:AddButton("Create config", function()
         local Name = Options.SaveManager_ConfigName.Value
