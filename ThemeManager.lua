@@ -141,6 +141,7 @@ function ThemeManager:CreateThemeManager(GroupBox)
 
     Toggles.ToggleWatermark:OnChanged(function()
         self.Library:SetWatermarkVisibility(Toggles.ToggleWatermark.Value)
+        self.Library:Notify(string.format("[Fondra]: Watermark %s", Toggles.ToggleWatermark.Value and "Enabled." or "Disabled."))
     end)
 
     ThemeManager:LoadDefault()
