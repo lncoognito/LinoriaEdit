@@ -136,7 +136,7 @@ function ThemeManager:CreateThemeManager(GroupBox)
         Default = true
     })
 
-    Options.ToggleWatermark:OnChanged(function()
+    Toggles.ToggleWatermark:OnChanged(function()
         self.Library:SetWatermarkVisibility(Options.ToggleWatermark.Value)
     end)
 
