@@ -116,7 +116,7 @@ function SaveManager:Load(Name)
 
     if not Success then return false, "Decode error." end
 
-    for i, Option in next, Decoded.objects do
+    for i, Option in next, Decoded.Objects do
         if self.Parser[Option.type] then
             self.Parser[Option.type].Load(Option.idx, Option)
         end
