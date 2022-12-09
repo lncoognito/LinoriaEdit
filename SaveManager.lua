@@ -77,7 +77,7 @@ function SaveManager:SetFolder(Folder)
 end
 
 function SaveManager:Save(Name)
-    local FullPath = self.Folder .. "/settings/" .. Name .. ".json"
+    local FullPath = self.Folder .. "/Settings/" .. Name .. ".json"
 
     local Data = {
         Objects = {}
@@ -108,7 +108,7 @@ function SaveManager:Save(Name)
 end
 
 function SaveManager:Load(Name)
-    local File = self.Folder .. "/settings/" .. Name .. ".json"
+    local File = self.Folder .. "/Settings/" .. Name .. ".json"
 
     if not isfile(File) then return false, "Invalid file." end
 
