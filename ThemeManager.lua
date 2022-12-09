@@ -94,7 +94,7 @@ function ThemeManager:CreateThemeManager(GroupBox)
 
     GroupBox:AddButton("Set as default", function()
         self:SaveDefault(Options.ThemeManager_ThemeList.Value)
-        self.Library:Notify(string.format("Set default theme to %q", Options.ThemeManager_ThemeList.Value))
+        self.Library:Notify(string.format("[Fondra]: Set default theme to %q", Options.ThemeManager_ThemeList.Value))
     end)
 
     Options.ThemeManager_ThemeList:OnChanged(function()
@@ -127,7 +127,7 @@ function ThemeManager:CreateThemeManager(GroupBox)
     GroupBox:AddButton("Set as default", function()
         if Options.ThemeManager_CustomThemeList.Value ~= nil and Options.ThemeManager_CustomThemeList.Value ~= "" then
             self:SaveDefault(Options.ThemeManager_CustomThemeList.Value)
-            self.Library:Notify(string.format("Set default theme to %q", Options.ThemeManager_CustomThemeList.Value))
+            self.Library:Notify(string.format("[Fondra]: Set default theme to %q", Options.ThemeManager_CustomThemeList.Value))
         end
     end)
 
@@ -175,7 +175,7 @@ end
 
 function ThemeManager:SaveCustomTheme(File)
     if File:gsub(" ", "") == "" then
-        return self.Library:Notify("Invalid file name for theme [empty]", 3)
+        return self.Library:Notify("[Fondra]: Invalid file name for theme [Empty]", 3)
     end
 
     local Theme = {}
