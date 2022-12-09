@@ -171,8 +171,8 @@ function SaveManager:RefreshConfigList()
     return Out
 end
 
-function SaveManager:SetLibrary(Library)
-    self.Library = Library
+function SaveManager:SetLibrary(Lib)
+    self.Library = Lib
 end
 
 function SaveManager:LoadAutoloadConfig()
