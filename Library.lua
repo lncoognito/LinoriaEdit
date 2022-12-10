@@ -50,6 +50,21 @@ local Start = tick()
 table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
     RainbowStep = RainbowStep + Delta
 
+    if RainbowStep >= (1 / 60) then
+        RainbowStep = 0
+
+        Hue = Hue + (1 / 400)
+
+        if Hue > 1 then
+            Hue = 0;
+        end;
+
+        Library.CurrentRainbowHue = Hue;
+        Library.CurrentRainbowColor = Color3.fromHSV(Hue, 0.8, 1);
+    end
+end))
+
+table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
     if Library.Watermark.Visible then
         local Seconds = (tick() - Start)
         
@@ -71,20 +86,11 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
         Library.Watermark.Size = UDim2.new(0, X + 15, 0, (Y * 1.5) + 3)
 
         Library.WatermarkText.Text = CurrentText
+
+        print("No")
     end
 
-    if RainbowStep >= (1 / 60) then
-        RainbowStep = 0
-
-        Hue = Hue + (1 / 400)
-
-        if Hue > 1 then
-            Hue = 0;
-        end;
-
-        Library.CurrentRainbowHue = Hue;
-        Library.CurrentRainbowColor = Color3.fromHSV(Hue, 0.8, 1);
-    end
+    print("Yes")
 end))
 
 function Library:AttemptSave()
