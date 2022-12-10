@@ -272,7 +272,7 @@ function SaveManager:BuildConfigSection(Tab)
     GroupBox:AddDropdown("WatermarkCustomizationDropdown", {
         Text = "Watermark Customizations",
         Tooltip = "Watermark Customizations.",
-        Values = { "Time", "Date", "Elapsed", "User", "FPS", "Ping" },
+        Values = { "Time", "Date", "Elapsed", "FPS", "Ping", "User" },
         
         Default = 5,
         Multi = true
@@ -305,16 +305,16 @@ function SaveManager:BuildConfigSection(Tab)
                 CurrentString = CurrentString.." - {ElapsedTime}"
             end
 
-            if i == "User" then
-                CurrentString = CurrentString.." - {Username}"
-            end
-
             if i == "FPS" then
                 CurrentString = CurrentString.." - {FPS}"
             end
 
             if i == "Ping" then
                 CurrentString = CurrentString.." - {Ping}"
+            end
+            
+            if i == "User" then
+                CurrentString = CurrentString.." - {Username}"
             end
         end
 
