@@ -46,6 +46,7 @@ local Library = {
 local RainbowStep = 0
 local Hue = 0
 local Start = tick()
+local SetWatermarkText = "None"
 
 table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
     RainbowStep = RainbowStep + Delta
@@ -62,9 +63,7 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
         Library.CurrentRainbowHue = Hue;
         Library.CurrentRainbowColor = Color3.fromHSV(Hue, 0.8, 1);
     end
-end))
 
-table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
     if Library.Watermark.Visible then
         local Seconds = (tick() - Start)
         
@@ -73,7 +72,7 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
         local Hours = ((Minutes - Minutes%60)/60)
         Minutes = Minutes - Hours*60
 
-        local CurrentText = Library.WatermarkText.Text
+        local NewText = SetWatermarkText
         :gsub("{Username}", tostring(LocalPlayer.Name))
         :gsub("{Date}", tostring(os.date("%b %d %Y")))
         :gsub("{Time}", tostring(os.date("%I:%M %p")))
@@ -81,13 +80,13 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
         :gsub("{Ping}", string.format("%s MS", Stats.Network.ServerStatsItem["Data Ping"]:GetValue()))
         :gsub("{ElapsedTime}", string.format("%s:%s:%s", string.format("%02i", Hours), string.format("%02i", Minutes), string.format("%02i", Seconds)))
         
-        local X, Y = Library:GetTextBounds(CurrentText, Enum.Font.Code, 14)
+        local X, Y = Library:GetTextBounds(NewText, Enum.Font.Code, 14)
 
-        print(CurrentText)
+        print(NewText)
 
         Library.Watermark.Size = UDim2.new(0, X + 15, 0, (Y * 1.5) + 3)
 
-        Library.WatermarkText.Text = CurrentText
+        Library.WatermarkText.Text = NewText
     end
 end))
 
@@ -2326,6 +2325,7 @@ function Library:SetWatermark(Text)
     Library:SetWatermarkVisibility(true)
 
     Library.WatermarkText.Text = Text;
+    SetWatermarkText = Text
 end;
 
 function Library:Notify(Text, Time)
