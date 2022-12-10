@@ -81,6 +81,7 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
         :gsub("{ElapsedTime}", string.format("%s:%s:%s", string.format("%02i", Hours), string.format("%02i", Minutes), string.format("%02i", Seconds)))
         
         if (tick() - FpsCooldown) > 1 then
+            FpsCooldown = tick()
             NewText = NewText:gsub("{FPS}", string.format("%s FPS", math.floor(1 / Delta)))
         end
 
