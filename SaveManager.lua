@@ -316,6 +316,8 @@ function SaveManager:BuildConfigSection(Tab)
             if v == "Ping" then
                 CurrentString = CurrentString + " - {Ping}"
             end
+
+            print(i, v)
         end
 
         self.Library:SetWatermark(CurrentString)
