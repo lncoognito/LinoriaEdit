@@ -46,11 +46,11 @@ local Library = {
 local RainbowStep = 0
 local Hue = 0
 local Start = tick()
-local LastRefresh = tick() - 0.5
+local LastRefresh = tick() - 1
 local SetWatermarkText = "None"
 
 function Library:UpdateWatermarkInformation(Delta)
-    if (tick() - LastRefresh) > 0.5 then
+    if (tick() - LastRefresh) > 1 then
         LastRefresh = tick()
 
         local Seconds = (tick() - Start)
@@ -64,7 +64,7 @@ function Library:UpdateWatermarkInformation(Delta)
         :gsub("{Username}", tostring(LocalPlayer.Name))
         :gsub("{Date}", tostring(os.date("%b %d %Y")))
         :gsub("{Time}", tostring(os.date("%I:%M %p")))
-        :gsub("{Ping}", string.format("%s MS", Stats.Network.ServerStatsItem["Data Ping"]:GetValue()))
+        :gsub("{Ping}", string.format("%s MS", math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())))
         :gsub("{ElapsedTime}", string.format("%s:%s:%s", string.format("%02i", Hours), string.format("%02i", Minutes), string.format("%02i", Seconds)))
         :gsub("{FPS}", string.format("%s FPS", math.floor(1 / Delta)))
 
