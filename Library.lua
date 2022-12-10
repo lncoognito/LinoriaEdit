@@ -49,7 +49,7 @@ local Start = tick()
 local LastRefresh = tick() - 0.5
 local SetWatermarkText = "None"
 
-function Library:UpdateWatermarkInformation()
+function Library:UpdateWatermarkInformation(Delta)
     if (tick() - LastRefresh) > 0.5 then
         LastRefresh = tick()
 
@@ -92,7 +92,7 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
     end
 
     if Library.Watermark.Visible then
-        Library:UpdateWatermarkInformation()
+        Library:UpdateWatermarkInformation(Delta)
     end
 end))
 
