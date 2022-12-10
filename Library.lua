@@ -46,8 +46,34 @@ local Library = {
 local RainbowStep = 0
 local Hue = 0
 local Start = tick()
-local FpsCooldown = tick() - 1
+local LastRefresh = tick() - 1
 local SetWatermarkText = "None"
+
+function UpdateWatermarkInformation()
+    if (tick() - LastRefresh) > 0.5 then
+        LastRefresh = tick()
+
+        local Seconds = (tick() - Start)
+        
+        local Minutes = (Seconds - Seconds%60)/60
+        Seconds = Seconds - Minutes*60
+        local Hours = ((Minutes - Minutes%60)/60)
+        Minutes = Minutes - Hours*60
+
+        local NewText = SetWatermarkText
+        :gsub("{Username}", tostring(LocalPlayer.Name))
+        :gsub("{Date}", tostring(os.date("%b %d %Y")))
+        :gsub("{Time}", tostring(os.date("%I:%M %p")))
+        :gsub("{Ping}", string.format("%s MS", Stats.Network.ServerStatsItem["Data Ping"]:GetValue()))
+        :gsub("{ElapsedTime}", string.format("%s:%s:%s", string.format("%02i", Hours), string.format("%02i", Minutes), string.format("%02i", Seconds)))
+        :gsub("{FPS}", string.format("%s FPS", math.floor(1 / Delta)))
+
+        local X, Y = Library:GetTextBounds(NewText, Enum.Font.Code, 14)
+
+        Library.Watermark.Size = UDim2.new(0, X + 15, 0, (Y * 1.5) + 3)
+        Library.WatermarkText.Text = NewText
+    end
+end
 
 table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
     RainbowStep = RainbowStep + Delta
@@ -66,29 +92,7 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
     end
 
     if Library.Watermark.Visible then
-        local Seconds = (tick() - Start)
-        
-        local Minutes = (Seconds - Seconds%60)/60
-        Seconds = Seconds - Minutes*60
-        local Hours = ((Minutes - Minutes%60)/60)
-        Minutes = Minutes - Hours*60
-
-        local NewText = SetWatermarkText
-        :gsub("{Username}", tostring(LocalPlayer.Name))
-        :gsub("{Date}", tostring(os.date("%b %d %Y")))
-        :gsub("{Time}", tostring(os.date("%I:%M %p")))
-        :gsub("{Ping}", string.format("%s MS", Stats.Network.ServerStatsItem["Data Ping"]:GetValue()))
-        :gsub("{ElapsedTime}", string.format("%s:%s:%s", string.format("%02i", Hours), string.format("%02i", Minutes), string.format("%02i", Seconds)))
-        
-        if (tick() - FpsCooldown) > 1 then
-            FpsCooldown = tick()
-            NewText = NewText:gsub("{FPS}", string.format("%s FPS", math.floor(1 / Delta)))
-        end
-
-        local X, Y = Library:GetTextBounds(NewText, Enum.Font.Code, 14)
-
-        Library.Watermark.Size = UDim2.new(0, X + 15, 0, (Y * 1.5) + 3)
-        Library.WatermarkText.Text = NewText
+        UpdateWatermarkInformation()
     end
 end))
 
