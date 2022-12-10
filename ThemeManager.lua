@@ -131,19 +131,6 @@ function ThemeManager:CreateThemeManager(GroupBox)
         end
     end)
 
-    GroupBox:AddDivider()
-
-    GroupBox:AddToggle("ToggleWatermark", {
-        Text = "Toggle Watermark",
-        Tooltip = "Name is self explanitory.",
-        Default = true
-    })
-
-    Toggles.ToggleWatermark:OnChanged(function()
-        self.Library:SetWatermarkVisibility(Toggles.ToggleWatermark.Value)
-        self.Library:Notify(string.format("[Fondra]: Watermark %s", Toggles.ToggleWatermark.Value and "Enabled." or "Disabled."))
-    end)
-
     ThemeManager:LoadDefault()
 
     local function UpdateTheme()
