@@ -6,6 +6,7 @@ local RunService = game:GetService('RunService')
 local GuiService = game:GetService('GuiService')
 local RenderStepped = RunService.RenderStepped;
 local LocalPlayer = game:GetService('Players').LocalPlayer;
+local Stats = game:GetService("Stats")
 local Mouse = LocalPlayer:GetMouse();
 
 local ProtectGui = protectgui or (syn and syn.protect_gui) or (function() end);
@@ -44,6 +45,7 @@ local Library = {
 
 local RainbowStep = 0
 local Hue = 0
+local Start = tick()
 
 table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
     RainbowStep = RainbowStep + Delta
@@ -60,7 +62,29 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
         Library.CurrentRainbowHue = Hue;
         Library.CurrentRainbowColor = Color3.fromHSV(Hue, 0.8, 1);
     end
-end))
+
+    if Library.Watermark.Visible then
+        local Seconds = (tick() - Start)
+        local Minutes = (Seconds - Seconds%60)/60
+        Seconds = Seconds - Minutes*60
+        local Hours = (Minutes - Minutes%60)/60
+        Minutes = Minutes - Hours*60
+
+        local CurrentText = Library.WatermarkText.Text
+        :gsub("{Username}", tostring(LocalPlayer.Name))
+        :gsub("{Date}", tostring(os.date("%b %d %Y")))
+        :gsub("{Time}", tostring(os.date("%I:%M %p")))
+        :gsub("{FPS}", string.format("%s FPS", math.floor(1 / Delta)))
+        :gsub("{Ping}", string.format("%s MS", Stats.Network.ServerStatsItem["Data Ping"]:GetValue()))
+        :gsub("{ElapsedTime}", string.format("%s:%s:%s", Hours, Minutes, Seconds)))
+        
+        local X, Y = Library:GetTextBounds(Text, Enum.Font.Code, 14)
+
+        Library.Watermark.Size = UDim2.new(0, X + 15, 0, (Y * 1.5) + 3)
+
+        Library.WatermarkText.Text = CurrentText
+    end
+end)
 
 function Library:AttemptSave()
     if Library.SaveManager then
