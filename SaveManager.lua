@@ -251,11 +251,11 @@ function SaveManager:BuildConfigSection(Tab)
         Options.SaveManager_ConfigList:SetValue(nil)
     end)
 
-    GroupBox:AddSeperator()
+    GroupBox:AddDivider()
 
     SaveManager.AutoloadLabel = GroupBox:AddLabel("Current autoload config: None", true)
 
-    GroupBox:AddSeperator()
+    GroupBox:AddDivider()
 
     GroupBox:AddToggle("ToggleWatermark", {
         Text = "Toggle Watermark",
