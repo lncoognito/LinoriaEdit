@@ -251,7 +251,22 @@ function SaveManager:BuildConfigSection(Tab)
         Options.SaveManager_ConfigList:SetValue(nil)
     end)
 
+    GroupBox:AddSeperator()
+
     SaveManager.AutoloadLabel = GroupBox:AddLabel("Current autoload config: None", true)
+
+    GroupBox:AddSeperator()
+
+    GroupBox:AddToggle("ToggleWatermark", {
+        Text = "Toggle Watermark",
+        Tooltip = "Name is self explanitory.",
+        Default = true
+    })
+
+    Toggles.ToggleWatermark:OnChanged(function()
+        self.Library:SetWatermarkVisibility(Toggles.ToggleWatermark.Value)
+        self.Library:Notify(string.format("[Fondra]: Watermark %s", Toggles.ToggleWatermark.Value and "Enabled." or "Disabled."))
+    end)
 
     if isfile(self.Folder .. "/Settings/AutoLoad.txt") then
         local Name = readfile(self.Folder .. "/Settings/AutoLoad.txt")
