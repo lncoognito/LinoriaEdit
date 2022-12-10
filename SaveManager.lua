@@ -293,31 +293,29 @@ function SaveManager:BuildConfigSection(Tab)
         local CurrentString = "<b>Fondra</b>"
 
         for i, v in pairs(Options.WatermarkCustomizationDropdown.Value) do
-            if v == "Time" then
+            if i == "Time" then
                 CurrentString = CurrentString.." - {Time}"
             end
 
-            if v == "Date" then
+            if i == "Date" then
                 CurrentString = CurrentString.." - {Date}"
             end
 
-            if v == "Elapsed" then
+            if i == "Elapsed" then
                 CurrentString = CurrentString.." - {ElapsedTime}"
             end
 
-            if v == "User" then
+            if i == "User" then
                 CurrentString = CurrentString.." - {Username}"
             end
 
-            if v == "FPS" then
+            if i == "FPS" then
                 CurrentString = CurrentString.." - {FPS}"
             end
 
-            if v == "Ping" then
+            if i == "Ping" then
                 CurrentString = CurrentString.." - {Ping}"
             end
-
-            print(i, v)
         end
 
         self.Library:SetWatermark(CurrentString)
