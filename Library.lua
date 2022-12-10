@@ -53,7 +53,7 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
     if RainbowStep >= (1 / 60) then
         RainbowStep = 0
 
-        Hue = Hue + (1 / 400);
+        Hue = Hue + (1 / 400)
 
         if Hue > 1 then
             Hue = 0;
@@ -67,7 +67,7 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
         local Seconds = (tick() - Start)
         local Minutes = (Seconds - Seconds%60)/60
         Seconds = Seconds - Minutes*60
-        local Hours = (Minutes - Minutes%60)/60
+        local Hours = ((Minutes - Minutes%60)/60)
         Minutes = Minutes - Hours*60
 
         local CurrentText = Library.WatermarkText.Text
@@ -76,15 +76,15 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
         :gsub("{Time}", tostring(os.date("%I:%M %p")))
         :gsub("{FPS}", string.format("%s FPS", math.floor(1 / Delta)))
         :gsub("{Ping}", string.format("%s MS", Stats.Network.ServerStatsItem["Data Ping"]:GetValue()))
-        :gsub("{ElapsedTime}", string.format("%s:%s:%s", Hours, Minutes, Seconds)))
+        :gsub("{ElapsedTime}", string.format("%s:%s:%s", Hours, Minutes, Seconds))
         
-        local X, Y = Library:GetTextBounds(Text, Enum.Font.Code, 14)
+        local X, Y = Library:GetTextBounds(CurrentText, Enum.Font.Code, 14)
 
         Library.Watermark.Size = UDim2.new(0, X + 15, 0, (Y * 1.5) + 3)
 
         Library.WatermarkText.Text = CurrentText
     end
-end)
+end))
 
 function Library:AttemptSave()
     if Library.SaveManager then
