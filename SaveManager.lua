@@ -263,9 +263,21 @@ function SaveManager:BuildConfigSection(Tab)
         Default = true
     })
 
+    
+    GroupBox:AddToggle("ToggleFondraChat", {
+        Text = "Fondra Communication",
+        Tooltip = "Talk with other fondra users.",
+        Default = true
+    })
+
     Toggles.ToggleWatermark:OnChanged(function()
         self.Library:SetWatermarkVisibility(Toggles.ToggleWatermark.Value)
         self.Library:Notify(string.format("[Fondra]: Watermark %s", Toggles.ToggleWatermark.Value and "Enabled." or "Disabled."))
+    end)
+
+    Toggles.ToggleFondraChat:OnChanged(function()
+        self.Library:SetWatermarkVisibility(Toggles.ToggleFondraChat.Value)
+        self.Library:Notify(string.format("[Fondra]: Fondra Communication %s", Toggles.ToggleFondraChat.Value and "Enabled." or "Disabled."))
     end)
 
     if isfile(self.Folder .. "/Settings/AutoLoad.txt") then
