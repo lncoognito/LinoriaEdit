@@ -278,7 +278,7 @@ function SaveManager:BuildConfigSection(Tab)
         Multi = true
     })
 
-    GroupBox:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", { Default = "RightShift", NoUI = true, Text = "Menu keybind" }) 
+    GroupBox:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", { Default = "LeftAlt", NoUI = true, Text = "Menu keybind" }) 
 
     Toggles.ToggleWatermark:OnChanged(function()
         self.Library:SetWatermarkVisibility(Toggles.ToggleWatermark.Value)
