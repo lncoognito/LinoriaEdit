@@ -292,30 +292,24 @@ function SaveManager:BuildConfigSection(Tab)
     Options.WatermarkCustomizationDropdown:OnChanged(function()
         local CurrentString = "<b>Fondra</b>"
 
-        for i, v in pairs(Options.WatermarkCustomizationDropdown.Value) do
-            if i == "Time" then
-                CurrentString = CurrentString.." - {Time}"
-            end
+        if Options.WatermarkCustomizationDropdown.Value.Time then
+            CurrentString = CurrentString.." - {Time}"
+        end
 
-            if i == "Date" then
-                CurrentString = CurrentString.." - {Date}"
-            end
+        if Options.WatermarkCustomizationDropdown.Value.Date then
+            CurrentString = CurrentString.." - {Date}"
+        end
 
-            if i == "Elapsed" then
-                CurrentString = CurrentString.." - {ElapsedTime}"
-            end
+        if Options.WatermarkCustomizationDropdown.Value.Elapsed then
+            CurrentString = CurrentString.." - {ElapsedTime}"
+        end
 
-            if i == "FPS" then
-                CurrentString = CurrentString.." - {FPS}"
-            end
+        if Options.WatermarkCustomizationDropdown.Value.FPS then
+            CurrentString = CurrentString.." - {FPS}"
+        end
 
-            if i == "Ping" then
-                CurrentString = CurrentString.." - {Ping}"
-            end
-            
-            if i == "User" then
-                CurrentString = CurrentString.." - {Username}"
-            end
+        if Options.WatermarkCustomizationDropdown.Value.Ping then
+            CurrentString = CurrentString.." - {Ping}"
         end
 
         self.Library:SetWatermark(CurrentString)
