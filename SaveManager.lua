@@ -262,7 +262,6 @@ function SaveManager:BuildConfigSection(Tab)
         Tooltip = "Name is self explanitory.",
         Default = true
     })
-
     
     GroupBox:AddToggle("ToggleFondraChat", {
         Text = "Fondra Communication",
@@ -270,15 +269,18 @@ function SaveManager:BuildConfigSection(Tab)
         Default = true
     })
 
+    GroupBox:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", { Default = "RightShift", NoUI = true, Text = "Menu keybind" }) 
+
     Toggles.ToggleWatermark:OnChanged(function()
         self.Library:SetWatermarkVisibility(Toggles.ToggleWatermark.Value)
         self.Library:Notify(string.format("[Fondra]: Watermark %s", Toggles.ToggleWatermark.Value and "Enabled." or "Disabled."))
     end)
 
     Toggles.ToggleFondraChat:OnChanged(function()
-        self.Library:SetWatermarkVisibility(Toggles.ToggleFondraChat.Value)
         self.Library:Notify(string.format("[Fondra]: Fondra Communication %s", Toggles.ToggleFondraChat.Value and "Enabled." or "Disabled."))
     end)
+
+    self.Library.ToggleKeybind = Options.MenuKeybind
 
     if isfile(self.Folder .. "/Settings/AutoLoad.txt") then
         local Name = readfile(self.Folder .. "/Settings/AutoLoad.txt")
