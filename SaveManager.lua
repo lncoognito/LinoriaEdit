@@ -269,6 +269,15 @@ function SaveManager:BuildConfigSection(Tab)
         Default = true
     })
 
+    GroupBox:AddDropdown("WatermarkCustomizationDropdown", {
+        Text = "Watermark Customizations",
+        Tooltip = "Watermark Customizations.",
+        Values = { "Time", "Date", "Elapsed", "User", "FPS", "Ping" },
+        
+        Default = 5,
+        Multi = true
+    })
+
     GroupBox:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", { Default = "RightShift", NoUI = true, Text = "Menu keybind" }) 
 
     Toggles.ToggleWatermark:OnChanged(function()
@@ -278,6 +287,38 @@ function SaveManager:BuildConfigSection(Tab)
 
     Toggles.ToggleFondraChat:OnChanged(function()
         self.Library:Notify(string.format("[Fondra]: Fondra Communication %s", Toggles.ToggleFondraChat.Value and "Enabled." or "Disabled."))
+    end)
+
+    Options.WatermarkCustomizationDropdown:OnChanged(function()
+        local CurrentString = "<b>Fondra</b>"
+
+        for i, v in pairs(Options.WatermarkCustomizationDropdown.Value) do
+            if v == "Time" then
+                CurrentString = CurrentString + " - {Time}"
+            end
+
+            if v == "Date" then
+                CurrentString = CurrentString + " - {Date}"
+            end
+
+            if v == "Elapsed" then
+                CurrentString = CurrentString + " - {ElapsedTime}"
+            end
+
+            if v == "User" then
+                CurrentString = CurrentString + " - {Username}"
+            end
+
+            if v == "FPS" then
+                CurrentString = CurrentString + " - {FPS}"
+            end
+
+            if v == "Ping" then
+                CurrentString = CurrentString + " - {Ping}"
+            end
+        end
+
+        self.Library:SetWatermark(CurrentString)
     end)
 
     self.Library.ToggleKeybind = Options.MenuKeybind
