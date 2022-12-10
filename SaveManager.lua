@@ -312,6 +312,10 @@ function SaveManager:BuildConfigSection(Tab)
             CurrentString = CurrentString.." - {Ping}"
         end
 
+        if Options.WatermarkCustomizationDropdown.Value.User then
+            CurrentString = CurrentString.." - {Username}"
+        end
+
         self.Library:SetWatermark(CurrentString)
     end)
 
