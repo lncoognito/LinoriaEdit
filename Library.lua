@@ -83,14 +83,12 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
         
         local X, Y = Library:GetTextBounds(CurrentText, Enum.Font.Code, 14)
 
+        print(CurrentText)
+
         Library.Watermark.Size = UDim2.new(0, X + 15, 0, (Y * 1.5) + 3)
 
         Library.WatermarkText.Text = CurrentText
-
-        print("No")
     end
-
-    print("Yes")
 end))
 
 function Library:AttemptSave()
