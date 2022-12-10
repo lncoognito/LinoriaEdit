@@ -46,10 +46,10 @@ local Library = {
 local RainbowStep = 0
 local Hue = 0
 local Start = tick()
-local LastRefresh = tick() - 1
+local LastRefresh = tick() - 0.5
 local SetWatermarkText = "None"
 
-function UpdateWatermarkInformation()
+function Library:UpdateWatermarkInformation()
     if (tick() - LastRefresh) > 0.5 then
         LastRefresh = tick()
 
@@ -92,7 +92,7 @@ table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
     end
 
     if Library.Watermark.Visible then
-        UpdateWatermarkInformation()
+        Library:UpdateWatermarkInformation()
     end
 end))
 
