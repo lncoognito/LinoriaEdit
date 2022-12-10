@@ -956,6 +956,7 @@ do
                     if Input.UserInputType == Enum.UserInputType.Keyboard then
                         if Input.KeyCode.Name == "Delete" then
                             Key = "Unknown"
+                            ContainerLabel.Visible = false
                         else
                             Key = Input.KeyCode.Name;
                         end
