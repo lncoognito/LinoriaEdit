@@ -851,7 +851,7 @@ do
         end;
 
         function KeyPicker:Update()
-            if Info.NoUI then
+            if Info.NoUI and KeyPicker.Value == "Unknown" then
                 return;
             end;
 
