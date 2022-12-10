@@ -294,27 +294,27 @@ function SaveManager:BuildConfigSection(Tab)
 
         for i, v in pairs(Options.WatermarkCustomizationDropdown.Value) do
             if v == "Time" then
-                CurrentString = CurrentString + " - {Time}"
+                CurrentString = CurrentString.." - {Time}"
             end
 
             if v == "Date" then
-                CurrentString = CurrentString + " - {Date}"
+                CurrentString = CurrentString.." - {Date}"
             end
 
             if v == "Elapsed" then
-                CurrentString = CurrentString + " - {ElapsedTime}"
+                CurrentString = CurrentString.." - {ElapsedTime}"
             end
 
             if v == "User" then
-                CurrentString = CurrentString + " - {Username}"
+                CurrentString = CurrentString.." - {Username}"
             end
 
             if v == "FPS" then
-                CurrentString = CurrentString + " - {FPS}"
+                CurrentString = CurrentString.." - {FPS}"
             end
 
             if v == "Ping" then
-                CurrentString = CurrentString + " - {Ping}"
+                CurrentString = CurrentString.." - {Ping}"
             end
 
             print(i, v)
