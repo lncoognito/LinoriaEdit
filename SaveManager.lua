@@ -160,17 +160,17 @@ function SaveManager:RefreshConfigList()
             local Start = Pos
             local Char  = File:sub(Pos, Pos)
 
-            while Start ~= "/" and Start ~= "\\" and Start ~= "" do
+            while Char ~= "/" and Char ~= "\\" and Char ~= "" do
                 Pos = Pos - 1
-                Start = File:sub(Pos, Pos)
+                Char = File:sub(Pos, Pos)
             end
 
-            if Start == "/" or Start == "\\" then
+            if Char == "/" or Char == "\\" then
                 table.insert(Out, File:sub(Pos + 1, Start - 1))
             end
         end
     end
-    
+        
     return Out
 end
 
