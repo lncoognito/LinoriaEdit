@@ -87,14 +87,14 @@ function SaveManager:Save(Name)
     for Index, Toggle in next, Toggles do
         if self.Ignore[Index] then continue end
 
-        table.insert(data.objects, self.Parser[Toggle.Type].Save(Index, Toggle))
+        table.insert(Data.Objects, self.Parser[Toggle.Type].Save(Index, Toggle))
     end
 
     for Index, Option in next, Options do
         if not self.Parser[Option.Type] then continue end
         if self.Ignore[Index] then continue end
 
-        table.insert(data.objects, self.Parser[Option.Type].Save(Index, Option))
+        table.insert(Data.Objects, self.Parser[Option.Type].Save(Index, Option))
     end	
 
     local Success, Encoded = pcall(HttpService.JSONEncode, HttpService, Data)
