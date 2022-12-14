@@ -1,9 +1,9 @@
-local HttpService = game:GetService("HttpService")
-local SaveManager = {}
+local HttpService       = game:GetService("HttpService")
+local SaveManager       = {}
 
-SaveManager.Folder = "LinoriaSaveFolder"
-SaveManager.Ignore = {}
-SaveManager.Parser = {
+SaveManager.Folder      = "LinoriaLibSave"
+SaveManager.Ignore      = {}
+SaveManager.Parser      = {
     Toggle = {
         Save = function(Index, Object) 
             return { type = "Toggle", idx = Index, value = Object.Value } 
@@ -66,13 +66,14 @@ SaveManager.Parser = {
 }
 
 function SaveManager:SetIgnoreIndexes(List)
-    for i, Key in next, List do
+    for _, Key in next, List do
         self.Ignore[Key] = true
     end
 end
 
 function SaveManager:SetFolder(Folder)
     self.Folder = Folder
+
     self:BuildFolderTree()
 end
 
@@ -86,20 +87,20 @@ function SaveManager:Save(Name)
     for Index, Toggle in next, Toggles do
         if self.Ignore[Index] then continue end
 
-        table.insert(Data.Objects, self.Parser[Toggle.Type].Save(Index, Toggle))
+        table.insert(data.objects, self.Parser[Toggle.Type].Save(Index, Toggle))
     end
 
     for Index, Option in next, Options do
         if not self.Parser[Option.Type] then continue end
         if self.Ignore[Index] then continue end
 
-        table.insert(Data.Objects, self.Parser[Option.Type].Save(Index, Option))
+        table.insert(data.objects, self.Parser[Option.Type].Save(Index, Option))
     end	
 
     local Success, Encoded = pcall(HttpService.JSONEncode, HttpService, Data)
 
     if not Success then
-        return false, "Failed to encode data."
+        return false, "Failed to encode."
     end
 
     writefile(FullPath, Encoded)
@@ -113,10 +114,9 @@ function SaveManager:Load(Name)
     if not isfile(File) then return false, "Invalid file." end
 
     local Success, Decoded = pcall(HttpService.JSONDecode, HttpService, readfile(File))
-
     if not Success then return false, "Decode error." end
 
-    for i, Option in next, Decoded.Objects do
+    for _, Option in next, Decoded.Objects do
         if self.Parser[Option.type] then
             self.Parser[Option.type].Load(Option.idx, Option)
         end
@@ -126,7 +126,10 @@ function SaveManager:Load(Name)
 end
 
 function SaveManager:IgnoreThemeSettings()
-    self:SetIgnoreIndexes({ "BackgroundColor", "MainColor", "AccentColor", "OutlineColor", "FontColor", "ThemeManager_ThemeList", "ThemeManager_CustomThemeList", "ThemeManager_CustomThemeName", })
+    self:SetIgnoreIndexes({ 
+        "BackgroundColor", "MainColor", "AccentColor", "OutlineColor", "FontColor",
+        "ThemeManager_ThemeList", "ThemeManager_CustomThemeList", "ThemeManager_CustomThemeName",
+    })
 end
 
 function SaveManager:BuildFolderTree()
@@ -146,23 +149,23 @@ function SaveManager:BuildFolderTree()
 end
 
 function SaveManager:RefreshConfigList()
-    local List = listfiles(self.Folder .. "/Settings")
-    local Out = {}
+    local List  = listfiles(self.Folder .. "/Settings")
+    local Out   = {}
 
     for i = 1, #List do
         local File = List[i]
 
         if File:sub(-5) == ".json" then
-            local Pos = File:find(".json", 1, true)
+            local Pos   = File:find(".json", 1, true)
             local Start = Pos
-            local Char = File:sub(Pos, Pos)
+            local Char  = File:sub(Pos, Pos)
 
-            while Char ~= "/" and Char ~= "\\" and Char ~= "" do
+            while Start ~= "/" and Start ~= "\\" and Start ~= "" do
                 Pos = Pos - 1
-                Char = File:sub(Pos, Pos)
+                Start = File:sub(Pos, Pos)
             end
 
-            if Char == "/" or Char == "\\" then
+            if Start == "/" or Start == "\\" then
                 table.insert(Out, File:sub(Pos + 1, Start - 1))
             end
         end
@@ -181,7 +184,7 @@ function SaveManager:LoadAutoloadConfig()
         local Success, Error = self:Load(Name)
 
         if not Success then
-            return self.Library:Notify(string.format("[Fondra]: Failed to load autoload config. [%s]", Error))
+            return self.Library:Notify("[Fondra]: Failed to load autoload config: " .. Error)
         end
 
         self.Library:Notify(string.format("[Fondra]: Auto loaded config %q", Name))
@@ -278,7 +281,7 @@ function SaveManager:BuildConfigSection(Tab)
         Multi = true
     })
 
-    GroupBox:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", { Default = "LeftAlt", NoUI = true, Text = "Menu keybind" }) 
+    GroupBox:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", { Default = "LeftAlt", NoUI = false, Text = "Menu keybind" }) 
 
     Toggles.ToggleWatermark:OnChanged(function()
         self.Library:SetWatermarkVisibility(Toggles.ToggleWatermark.Value)
@@ -319,14 +322,14 @@ function SaveManager:BuildConfigSection(Tab)
         self.Library:SetWatermark(CurrentString)
     end)
 
-    self.Library.ToggleKeybind = Options.MenuKeybind
-
     if isfile(self.Folder .. "/Settings/AutoLoad.txt") then
         local Name = readfile(self.Folder .. "/Settings/AutoLoad.txt")
         SaveManager.AutoloadLabel:SetText("Current AutoLoad config: " .. Name)
     end
-
+    
     SaveManager:SetIgnoreIndexes({ "SaveManager_ConfigList", "SaveManager_ConfigName" })
+
+    self.Library.ToggleKeybind = Options.MenuKeybind
 end
 
 SaveManager:BuildFolderTree()
