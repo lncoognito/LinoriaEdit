@@ -15,7 +15,7 @@ local ScreenGui = Instance.new('ScreenGui');
 ProtectGui(ScreenGui);
 
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global;
-ScreenGui.Parent = CoreGui;
+ScreenGui.Parent = gethui() or CoreGui;
 
 local Toggles = {};
 local Options = {};
@@ -2982,6 +2982,8 @@ function Library:CreateWindow(...)
     function Library.Toggle()
         Outer.Visible = not Outer.Visible;
         ModalElement.Modal = Outer.Visible;
+
+        getgenv().LinoriaUIToggle = Outer.Visible
 
         local oIcon = Mouse.Icon;
         local State = InputService.MouseIconEnabled;
