@@ -15,7 +15,7 @@ local ScreenGui = Instance.new('ScreenGui');
 ProtectGui(ScreenGui);
 
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global;
-ScreenGui.Parent = gethui() or CoreGui;
+ScreenGui.Parent = CoreGui;
 
 local Toggles = {};
 local Options = {};
