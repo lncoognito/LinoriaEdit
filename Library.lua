@@ -2983,8 +2983,6 @@ function Library:CreateWindow(...)
         Outer.Visible = not Outer.Visible;
         ModalElement.Modal = Outer.Visible;
 
-        getgenv().LinoriaUIToggle = Outer.Visible
-
         local oIcon = Mouse.Icon;
         local State = InputService.MouseIconEnabled;
 
