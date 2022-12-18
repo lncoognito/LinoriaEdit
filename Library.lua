@@ -905,7 +905,9 @@ do
             DisplayLabel.Text = Key;
             KeyPicker.Value = Key;
 
-            print(ModeButtons[Mode])
+            for i, v in next, ModeButton do
+                print(i, v)
+            end
 
             ModeButtons[Mode]:Select();
             KeyPicker:Update();
