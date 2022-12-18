@@ -906,10 +906,11 @@ do
             KeyPicker.Value = Key;
 
             for i, v in next, ModeButtons do
-                print(i, v)
+                if i == Mode then
+                    v:Select()
+                end
             end
 
-            ModeButtons[Mode]:Select();
             KeyPicker:Update();
         end;
 
