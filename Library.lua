@@ -37,60 +37,57 @@ local Library = {
     OpenedFrames = {};
 };
 
-task.spawn(function()
-    local Tick = tick();
-    local Hue = 0;
+local Tick = tick();
+local Hue = 0;
 
-    local Start = tick()
-    local LastRefresh = tick() - 1
-    local SetWatermarkText = "None"
+local Start = tick()
+local LastRefresh = tick() - 1
+local SetWatermarkText = "None"
 
-    function Library:UpdateWatermarkInformation(Delta)
-        if (tick() - LastRefresh) > 1 then
-            LastRefresh = tick()
+function Library:UpdateWatermarkInformation(Delta)
+    if (tick() - LastRefresh) > 1 then
+        LastRefresh = tick()
 
-            local Seconds = (tick() - Start)
-            
-            local Minutes = (Seconds - Seconds%60)/60
-            Seconds = Seconds - Minutes*60
-            local Hours = ((Minutes - Minutes%60)/60)
-            Minutes = Minutes - Hours*60
+        local Seconds = (tick() - Start)
+        
+        local Minutes = (Seconds - Seconds%60)/60
+        Seconds = Seconds - Minutes*60
+        local Hours = ((Minutes - Minutes%60)/60)
+        Minutes = Minutes - Hours*60
 
-            local NewText = SetWatermarkText
-            :gsub("{Username}", tostring(LocalPlayer.Name))
-            :gsub("{Date}", tostring(os.date("%b %d %Y")))
-            :gsub("{Time}", tostring(os.date("%I:%M %p")))
-            :gsub("{Ping}", string.format("%s MS", math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())))
-            :gsub("{ElapsedTime}", string.format("%s:%s:%s", string.format("%02i", Hours), string.format("%02i", Minutes), string.format("%02i", Seconds)))
-            :gsub("{FPS}", string.format("%s FPS", math.floor(1 / Delta)))
+        local NewText = SetWatermarkText
+        :gsub("{Username}", tostring(LocalPlayer.Name))
+        :gsub("{Date}", tostring(os.date("%b %d %Y")))
+        :gsub("{Time}", tostring(os.date("%I:%M %p")))
+        :gsub("{Ping}", string.format("%s MS", math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())))
+        :gsub("{ElapsedTime}", string.format("%s:%s:%s", string.format("%02i", Hours), string.format("%02i", Minutes), string.format("%02i", Seconds)))
+        :gsub("{FPS}", string.format("%s FPS", math.floor(1 / Delta)))
 
-            local X, Y = Library:GetTextBounds(NewText, Enum.Font.Code, 14)
+        local X, Y = Library:GetTextBounds(NewText, Enum.Font.Code, 14)
 
-            Library.Watermark.Size = UDim2.new(0, X + 15, 0, (Y * 1.5) + 3)
-            Library.WatermarkText.Text = NewText
-        end
+        Library.Watermark.Size = UDim2.new(0, X + 15, 0, (Y * 1.5) + 3)
+        Library.WatermarkText.Text = NewText
     end
+end
 
+RenderStepped:Connect(function(Delta)
+    if tick() - Tick >= (1 / 60) then
+        Hue = Hue + (1 / 400);
 
-    RenderStepped:Connect(function(Delta)
-        if tick() - Tick >= (1 / 60) then
-            Hue = Hue + (1 / 400);
-
-            if Hue > 1 then
-                Hue = 0;
-            end;
-
-            Library.CurrentRainbowHue = Hue;
-            Library.CurrentRainbowColor = Color3.fromHSV(Hue, 0.8, 1);
-
-            Tick = tick();
+        if Hue > 1 then
+            Hue = 0;
         end;
-    end)
+
+        Library.CurrentRainbowHue = Hue;
+        Library.CurrentRainbowColor = Color3.fromHSV(Hue, 0.8, 1);
+
+        Tick = tick();
+    end;
 
     if Library.Watermark.Visible then
         Library:UpdateWatermarkInformation(Delta)
     end
-end);
+end)
 
 function Library:AttemptSave()
     if Library.SaveManager then
