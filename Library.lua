@@ -4,6 +4,7 @@ local TweenService = game:GetService('TweenService');
 local CoreGui = game:GetService('CoreGui');
 local RunService = game:GetService('RunService')
 local GuiService = game:GetService('GuiService')
+local Stats = game:GetService('Stats')
 local RenderStepped = RunService.RenderStepped;
 local LocalPlayer = game:GetService('Players').LocalPlayer;
 local Mouse = LocalPlayer:GetMouse();
@@ -857,11 +858,15 @@ do
             local State = KeyPicker:GetState();
 
             ContainerLabel.Text = string.format('[%s] %s (%s)', KeyPicker.Value, Info.Text, KeyPicker.Mode);
-
-            ContainerLabel.Visible = true;
             ContainerLabel.TextColor3 = State and Library.AccentColor or Library.FontColor;
 
             Library.RegistryMap[ContainerLabel].Properties.TextColor3 = State and 'AccentColor' or 'FontColor';
+
+            if KeyPicker.Value == "Unknown" then
+                ContainerLabel.Visible = false
+            else
+                ContainerLabel.Visible = true
+            end
 
             local YSize = 0
             local XSize = 0
@@ -2242,6 +2247,7 @@ do
         Position = UDim2.new(0, 5, 0, 0);
         Size = UDim2.new(1, -4, 1, 0);
         TextSize = 14;
+        RichText = true;
         TextXAlignment = Enum.TextXAlignment.Left;
         ZIndex = 203;
         Parent = InnerFrame;
@@ -2486,6 +2492,7 @@ function Library:CreateWindow(...)
         Text = Config.Title or '';
         TextXAlignment = Enum.TextXAlignment.Left;
         ZIndex = 1;
+        RichText = true;
         Parent = Inner;
     });
 
