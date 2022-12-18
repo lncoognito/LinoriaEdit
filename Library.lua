@@ -905,7 +905,7 @@ do
             DisplayLabel.Text = Key;
             KeyPicker.Value = Key;
 
-            for i, v in next, ModeButton do
+            for i, v in next, ModeButtons do
                 print(i, v)
             end
 
