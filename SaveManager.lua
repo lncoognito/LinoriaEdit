@@ -122,7 +122,7 @@ function SaveManager:Load(Name)
 	local File 	= self.Folder .. "/Settings/" .. Name .. ".json"
 	if not isfile(File) then return false, "Invalid file." end
 
-	local Success, Encoded = pcall(HttpService.JSONEncode, HttpService, readfile(File))
+	local Success, Decoded = pcall(HttpService.JSONDecode, HttpService, readfile(File))
 
 	if not Success then return false, "Decode error." end
 
