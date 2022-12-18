@@ -904,6 +904,13 @@ do
             local Key, Mode = Data[1], Data[2];
             DisplayLabel.Text = Key;
             KeyPicker.Value = Key;
+
+            print(ModeButtons[Mode])
+
+            for i, v in pairs(ModeButtons[Mode]) do
+                print(i, v)
+            end
+
             ModeButtons[Mode]:Select();
             KeyPicker:Update();
         end;
