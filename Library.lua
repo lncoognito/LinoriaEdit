@@ -954,26 +954,7 @@ do
                     local Key;
 
                     if Input.UserInputType == Enum.UserInputType.Keyboard then
-                        if Input.KeyCode.Name == "Delete" then
-                            Key = "Unknown"
-                            ContainerLabel.Visible = false
-
-                            local YSize = 0
-                            local XSize = 0
-                            
-                            for _, Label in next, Library.KeybindContainer:GetChildren() do
-                                if Label:IsA('TextLabel') and Label.Visible then
-                                    YSize = YSize + 18;
-                                    if (Label.TextBounds.X > XSize) then
-                                        XSize = Label.TextBounds.X 
-                                    end 
-                                end;
-                            end;
-                
-                            Library.KeybindFrame.Size = UDim2.new(0, math.max(XSize + 10, 210), 0, YSize + 23)
-                        else
-                            Key = Input.KeyCode.Name;
-                        end
+                        Key = Input.KeyCode.Name;
                     elseif Input.UserInputType == Enum.UserInputType.MouseButton1 then
                         Key = 'MB1';
                     elseif Input.UserInputType == Enum.UserInputType.MouseButton2 then
