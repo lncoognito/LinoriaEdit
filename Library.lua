@@ -906,6 +906,8 @@ do
             KeyPicker.Value = Key;
 
             for i, v in next, ModeButtons do
+                print(table.unpack(v))
+
                 if i == Mode then
                     v:Select()
                 end
