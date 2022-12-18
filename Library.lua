@@ -848,8 +848,6 @@ do
             end;
 
             ModeButtons[Mode] = ModeButton;
-
-            print(ModeButtons[Mode])
         end;
 
         function KeyPicker:Update()
@@ -906,6 +904,9 @@ do
             local Key, Mode = Data[1], Data[2];
             DisplayLabel.Text = Key;
             KeyPicker.Value = Key;
+
+            print(Key, Mode)
+
             ModeButtons[Mode]:Select();
             KeyPicker:Update();
         end;
