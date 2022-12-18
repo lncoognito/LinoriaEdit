@@ -805,7 +805,11 @@ do
         local Modes = Info.Modes or { 'Always', 'Toggle', 'Hold' };
         local ModeButtons = {};
 
+        print(Modes)
+
         for Idx, Mode in next, Modes do
+            print(Mode)
+
             local ModeButton = {};
 
             local Label = Library:CreateLabel({
@@ -904,13 +908,6 @@ do
             local Key, Mode = Data[1], Data[2];
             DisplayLabel.Text = Key;
             KeyPicker.Value = Key;
-
-            print(ModeButtons[Mode])
-
-            for i, v in pairs(ModeButtons[Mode]) do
-                print(i, v)
-            end
-
             ModeButtons[Mode]:Select();
             KeyPicker:Update();
         end;
