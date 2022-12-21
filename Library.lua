@@ -971,7 +971,7 @@ do
                         Key = 'MB2';
                     elseif Input.UserInputType == Enum.UserInputType.MouseButton3 then
                         Key = 'Unknown';
-                    end;;
+                    end;
 
                     Break = true;
                     Picking = false;
