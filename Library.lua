@@ -963,11 +963,11 @@ do
                 Event = InputService.InputBegan:Connect(function(Input)
                     local Key;
 
-                    if Input.UserInputType == Enum.UserInputType.Keyboard then
-                        if Input.KeyCode == Enum.KeyCode.Delete then
-                            Key = Input.KeyCode.Unknown;
-                        end;
+                    if Input.KeyCode == Enum.KeyCode.Delete then
+                        Key = Input.KeyCode.Unknown;
+                    end;
 
+                    if Input.UserInputType == Enum.UserInputType.Keyboard then
                         Key = Input.KeyCode.Name;
                     elseif Input.UserInputType == Enum.UserInputType.MouseButton1 then
                         Key = 'MB1';
