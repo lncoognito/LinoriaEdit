@@ -964,6 +964,10 @@ do
                     local Key;
 
                     if Input.UserInputType == Enum.UserInputType.Keyboard then
+                        if Input.KeyCode == Enum.KeyCode.Delete then
+                            Key = Input.KeyCode.Unknown;
+                        end;
+
                         Key = Input.KeyCode.Name;
                     elseif Input.UserInputType == Enum.UserInputType.MouseButton1 then
                         Key = 'MB1';
