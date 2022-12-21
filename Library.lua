@@ -964,7 +964,7 @@ do
                     local Key;
 
                     if Input.KeyCode == Enum.KeyCode.Delete then
-                        Key = Input.KeyCode.Unknown;
+                        Key = 'Unknown';
                     end;
 
                     if Input.UserInputType == Enum.UserInputType.Keyboard then
