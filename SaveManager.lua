@@ -275,6 +275,12 @@ function SaveManager:BuildConfigSection(Tab)
         Tooltip = "Name is self explanitory.",
         Default = true
     })
+
+    GroupBox:AddToggle("ToggleKeybindsFrame", {
+        Text = "Toggle Keybinds Frame",
+        Tooltip = "Shows your keybind on a ui.",
+        Default = true
+    })
     
     GroupBox:AddToggle("ToggleFondraChat", {
         Text = "Fondra Communication",
@@ -296,6 +302,11 @@ function SaveManager:BuildConfigSection(Tab)
     Toggles.ToggleWatermark:OnChanged(function()
         self.Library:SetWatermarkVisibility(Toggles.ToggleWatermark.Value)
         self.Library:Notify(string.format("[Fondra]: Watermark %s", Toggles.ToggleWatermark.Value and "Enabled." or "Disabled."))
+    end)
+
+    Toggles.ToggleKeybindsFrame:OnChanged(function()
+        self.Library.KeybindFrame.Visible = Toggles.ToggleKeybindsFrame.Value
+        self.Library:Notify(string.format("[Fondra]: Keybind Frame %s", Toggles.ToggleWatermark.Value and "Enabled." or "Disabled."))
     end)
 
     Toggles.ToggleFondraChat:OnChanged(function()
