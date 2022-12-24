@@ -314,7 +314,9 @@ function SaveManager:BuildConfigSection(Tab)
     end)
 
     Options.WatermarkCustomizationDropdown:OnChanged(function()
-        local CurrentString = "<b>Fondra</b>"
+        print(self.Library:ReturnWatermarkSetText())
+
+        local CurrentString = self.Library:ReturnWatermarkSetText()
 
         if Options.WatermarkCustomizationDropdown.Value.Time then
             CurrentString = CurrentString.." - {Time}"
