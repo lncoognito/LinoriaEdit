@@ -75,10 +75,6 @@ function Library:UpdateWatermarkInformation(Delta)
     end
 end
 
-function Library:ReturnWatermarkSetText()
-    return SetWatermarkText
-end
-
 table.insert(Library.Signals, RenderStepped:Connect(function(Delta)
     RainbowStep = RainbowStep + Delta
 
