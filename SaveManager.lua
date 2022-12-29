@@ -288,6 +288,8 @@ function SaveManager:BuildConfigSection(Tab)
         Default = true
     })
 
+    GroupBox:AddDivider()
+
     GroupBox:AddDropdown("WatermarkCustomizationDropdown", {
         Text = "Watermark Customizations",
         Tooltip = "Watermark Customizations.",
@@ -296,6 +298,8 @@ function SaveManager:BuildConfigSection(Tab)
         Default = 5,
         Multi = true
     })
+
+    GroupBox:AddDivider()
 
     GroupBox:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", { Default = "LeftAlt", NoUI = false, Text = "Menu keybind" }) 
 
